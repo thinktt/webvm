@@ -1,0 +1,11 @@
+FROM --platform=i386 i386/alpine
+
+RUN apk update
+RUN apk add wine
+RUN apk add vim
+RUN winecfg
+RUN apk add xvfb
+# RUN apk add nodejs
+
+ENV WINEDEBUG=-all
+ENV DISPLAY=:0.0
