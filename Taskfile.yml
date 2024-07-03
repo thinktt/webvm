@@ -9,8 +9,15 @@ tasks:
       - docker run --rm -it --name alpine_wine alpine_wine:latest  /bin/sh
   dbuild:deb: 
     cmds: 
-      - docker build -f dockerfiles/debian_custom -t debian_custom:latest .
+      - docker build --no-cache -f dockerfiles/debian_custom -t debian_custom:latest .
   drun:deb: 
     cmds:
       - docker run --rm -it --name debian_custom debian_custom:latest  /bin/bash
+  drun:bulldeb:
+    - docker run --rm -it --name bulldeb i386/debian:bullseye  /bin/bash
+  
+  drun:
+    deps:
+      - task: dbuild:deb
+      - task: drun:deb
 

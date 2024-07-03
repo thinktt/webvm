@@ -11,28 +11,14 @@ RUN wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/d
 
 RUN apt-get update && \
   apt-get install -y  \
-  winehq-stable && \
+  winehq-stable xvfb && \
   winecfg && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
-
-FROM i386/debian:bullseye-slim
-COPY --from=builder /opt/wine-stable /opt/wine-stable
   
 ENV WINEDEBUG=-all
 ENV DISPLAY=:0.0
 
-
-RUN for file in /opt/wine-stable/bin/*; do \
-        ln -s "$file" /usr/bin/; \
-    done
-
-# RUN apt-get update && \
-#   apt-get install -y libfreetype6-dev && \
-#   apt-get clean && \
-#   rm -rf /var/lib/apt/lists/*
-
-RUN winecfg 
 
 COPY ./examples/win /opt/win
 WORKDIR /opt/win
