@@ -1,10 +1,16 @@
 version: '3'
 
 tasks:
-  dbuild: 
+  dbuild:alp: 
     cmds: 
       - docker build -f dockerfiles/alpine_wine -t alpine_wine:latest .
-  drun: 
+  drun:alp: 
     cmds:
       - docker run --rm -it --name alpine_wine alpine_wine:latest  /bin/sh
+  dbuild:deb: 
+    cmds: 
+      - docker build -f dockerfiles/debian_custom -t debian_custom:latest .
+  drun:deb: 
+    cmds:
+      - docker run --rm -it --name debian_custom debian_custom:latest  /bin/bash
 

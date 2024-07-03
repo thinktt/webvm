@@ -1,0 +1,20 @@
+FROM --platform=i386 i386/debian:bullseye
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get clean && apt-get update && apt-get -y upgrade
+RUN apt-get install wget -y 
+RUN mkdir -pm755 /etc/apt/keyrings
+RUN wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
+RUN wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/dists/bullseye/winehq-bullseye.sources
+RUN apt-get update
+RUN apt-get install -y winehq-stable
+RUN winecfg
+RUN apt-get -y install xvfb
+
+ENV WINEDEBUG=-all
+ENV DISPLAY=:0.0
+
+COPY ./examples/win /opt/win
+WORKDIR /opt/win
+
+CMD [ "/bin/bash" ]
