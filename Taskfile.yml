@@ -1,0 +1,10 @@
+version: '3'
+
+tasks:
+  dbuild: 
+    cmds: 
+      - docker build -f dockerfiles/alpine_wine -t alpine_wine:latest .
+  drun: 
+    cmds:
+      - docker run --rm -it --name alpine_wine alpine_wine:latest  /bin/sh
+
