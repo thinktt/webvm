@@ -11,4 +11,5 @@ RUN apk add xvfb
 ENV WINEDEBUG=-all
 ENV DISPLAY=:0.0
 
-COPY winbin/ /opt/greet/
+COPY examples/win/ /opt/win/
+WORKDIR /opt/win
